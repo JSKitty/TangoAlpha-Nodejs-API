@@ -1,5 +1,6 @@
 const req = require('requestify')
 const basePublicUrl = 'https://www.cxd.network/api/public/v1/'
+const basePrivateUrl = 'https://www.cxd.network/api/private/v1/'
 var lastPrice = 0,
   lastCoin = '',
   user = {discordID: '', discordUsername: '', balance: 0}
@@ -17,9 +18,9 @@ exports.price = async function (coin) {
       return price
     } catch (err) {
       if (err.body) {
-        console.log('ConcordAPI Error caught: (' + err.body + ')')
+        console.warn('ConcordAPI Error caught: (' + err.body + ')')
       } else {
-        console.log('ConcordAPI Error caught: (' + err + ')')
+        console.warn('ConcordAPI Error caught: (' + err + ')')
       }
       if (lastCoin === coin) {
         return lastPrice
@@ -40,15 +41,46 @@ exports.getBalance = async function (discordID) {
       return balance
     } catch (err) {
       if (err.body) {
-        console.log('ConcordAPI Error caught: (' + err.body + ')')
+        console.warn('ConcordAPI Error caught: (' + err.body + ')')
       } else {
-        console.log('ConcordAPI Error caught: (' + err + ')')
+        console.warn('ConcordAPI Error caught: (' + err + ')')
       }
     }
   } else if (typeof discordID !== 'string') {
     console.warn('String variable missing, "' + typeof discordID + ' - ' + discordID + '" was recieved')
   } else {
     console.warn('Invalid parameters, please ensure discordID is 18 characters long and is the correct format: string')
+  }
+}
+
+exports.send = async function (auth, amount, to) {
+  if (auth && auth != null && amount && amount != null && to && to != null && typeof auth === 'object' && auth.u && auth.p) {
+    try {
+      if (amount >= 0.0001) {
+        if (to.length >= 2) {
+          var response = await req.post(basePrivateUrl + 'send', {auth: auth, amount: amount, to: to})
+          return response.body
+        } else {
+          console.warn('Invalid Parameter, "To" is not a string with a length of atleast 2')
+        }
+      } else {
+        console.warn('Invalid Parameter, "Amount" is not a Number over atleast 0.0001')
+      }
+    } catch (err) {
+      if (err.body) {
+        if (err.body.includes('Insufficient') === false) {
+          console.warn('ConcordAPI Error caught: (' + err.body + ')')
+        } else {
+          return 'Insufficient Funds!'
+        }
+      } else {
+        if (err) { console.warn('ConcordAPI Error caught: (' + err + ')') }
+      }
+    }
+  } else if (typeof auth !== 'object') {
+    console.warn('Object variable missing, "' + typeof auth + ' - ' + auth + '" was recieved')
+  } else {
+    console.warn('Invalid Parameters, please ensure you have provided the following variables:\nObject: auth {String: p, String:u}\nNumber: amount\nString: to\nSee "GitHub - Concord-API-NodeJS - README.md" for more info')
   }
 }
 
@@ -63,9 +95,9 @@ exports.getUser = async function (discordID) {
       return userData
     } catch (err) {
       if (err.body) {
-        console.log('ConcordAPI Error caught: (' + err.body + ')')
+        console.warn('ConcordAPI Error caught: (' + err.body + ')')
       } else {
-        console.log('ConcordAPI Error caught: (' + err + ')')
+        console.warn('ConcordAPI Error caught: (' + err + ')')
       }
     }
   } else if (typeof discordID !== 'string') {

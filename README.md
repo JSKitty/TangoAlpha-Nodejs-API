@@ -3,7 +3,7 @@ ConcordAPI is intended to be a simple way of interacting with the Concord Servic
 
 [![JavaScript Style Guide](https://cdn.rawgit.com/standard/standard/master/badge.svg)](https://github.com/standard/standard)
 
-**Notice:** This module is in early development, and may have minor bugs and inconveniences, this module is under active development by the Concord Team
+**Notice:** This module is in early development, and may have minor bugs and inconveniences, this module is under active development by the Concord Team and Community
 
 
 # Getting Started
@@ -62,8 +62,32 @@ concord.getBalance(userID).then(balance => {
 })
 ```
 
+## Sending a Transaction through ConcordPay
+ConcordPay is a simple online interface for the Lightnet transaction system, transactions can be sent directly to any registered Lightnet User from any integrated Platform.
+
+To send a transaction, you first need to provide your Concord Home account credentials in an Object, as shown below:
+```js
+var auth = {u: 'username-here', p: 'password-here'} /* Replace values with your real credentials! */
+```
+
+Once you've entered your Auth-data, send your transaction!
+
+```js
+var amount = 25 /* The amount of Concord (CXD) you are sending */
+var to = 'username-of-transaction-receiver' /* This is the user Receiving the transaction */
+
+concord.send(auth, amount, to).then(response => { /* Sends your Auth and Transaction data to Lightnet for processing */
+  console.log(response) /* Logs the API's response to the console. E.G: "(User)'s Payment Has Sent!'" */
+})
+
+```
+
+And to Receive transactions, simply give your Concord Home username to the application/user that wants to pay you
+
 ## Full Examples
-  Examples in this section can be freely copy/pasted into your code and modified to your choosing, and when unmodified, "just work"
+  Examples in this section can be freely copy/pasted into your code and modified to your choosing, and when unmodified and authenticated, "just work"
+
+### Example 1. Continuously pulling a Concord Exchange coin price
   ```js
 	/* This script would run indefinitely until the console/terminal is closed manually */
   var concord = require("concordapi")
@@ -77,3 +101,14 @@ concord.getBalance(userID).then(balance => {
 		})
   }
 ```
+
+### Example 2. Authenticating and sending a Transaction
+  ```js
+  var auth = {u: 'username-here', p: 'password-here'}
+  var amount = 25  /* The amount of Concord (CXD) you are sending */
+  var to = 'username-of-receiver'  /* This is the user Receiving the transaction */
+
+  concord.send(auth, amount, to).then(response => { /* The API Package function, to send the payment to the Lightnet Server */
+    console.log(response)  /* Logs the API's response to the console. E.G: "(User)'s Payment Has Sent!'" */
+  })
+  ```
