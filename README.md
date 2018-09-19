@@ -104,6 +104,8 @@ And to Receive transactions, simply give your Concord Home username to the appli
 
 ### Example 2. Authenticating and sending a Transaction
   ```js
+  var concord = require("concordapi")
+
   var auth = {u: 'username-here', p: 'password-here'}
   var amount = 25  /* The amount of Concord (CXD) you are sending */
   var to = 'username-of-receiver'  /* This is the user Receiving the transaction */
