@@ -12,7 +12,7 @@ Install the Concord-API NPM Package with:
 ```
 npm i concordapi
 ```
-And require the module in your Node.js application with:
+Also, require the module in your Node.js application with:
 ```js
 var concord = require("concordapi")
 ```
@@ -40,7 +40,7 @@ Would log the price of IC (Ignition Coin) live from the Concord Exchange.
 
 ## Reading Concord Social Platform (CSP) Profiles
 
-There are two options you can choose from (to read data from a user's profile).
+There are two options you can choose from to read data from a user's profile.
 ### Method One - Via the user Object
 The user Object contains all public data of a user's profile. The contents of the object can be seen by stringifying the result of the function:
 ```js
@@ -54,7 +54,7 @@ concord.getUser(userID).then(user => {
 })
 ```
 
-### Method Two - Individual Profile elements
+### Method Two - Individual Profile Elements
 If you don't want to use the full object or want to create a Lightweight function without accessing the object, you can use:
 ```js
 concord.getBalance(userID).then(balance => {
@@ -63,7 +63,7 @@ concord.getBalance(userID).then(balance => {
 ```
 
 ## Sending a Transaction through ConcordPay
-ConcordPay is a simple online interface for the Lightnet transaction system. Transactions can be sent directly to any registered Lightnet User from any integrated Platform.
+ConcordPay is a simple online interface for the Lightnet transaction system. Transactions can be sent directly to any registered Lightnet User from any integrated platform.
 
 To send a transaction, you first need to provide your Concord Home account credentials in an Object, as shown below:
 ```js
@@ -85,7 +85,7 @@ concord.send(auth, amount, to).then(response => { /* Sends your Auth and Transac
 To Receive transactions, simply give your Concord Home username to the application/user that wants to pay you.
 
 ## Full Examples
-  Examples in this section can be freely copy/pasted into your code and modified to your choosing, and when unmodified and authenticated, "just work".
+  Examples in this section can be freely copy/pasted into your code and modified to your choosing and when unmodified and authenticated, "just work".
 
 ### Example 1. Continuously pulling a Concord Exchange coin price
   ```js
@@ -102,7 +102,7 @@ To Receive transactions, simply give your Concord Home username to the applicati
   }
 ```
 
-### Example 2. Authenticating and sending a Transaction
+### Example 2. Authenticating and Sending a Transaction
   ```js
   var concord = require("concordapi")
 
