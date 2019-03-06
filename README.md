@@ -1,116 +1,70 @@
-# ConcordAPI
-ConcordAPI is intended to be a simple way of interacting with the Concord Services and its REST API via Node.js.
+# TangoAlpha Node.js API
 
 [![JavaScript Style Guide](https://cdn.rawgit.com/standard/standard/master/badge.svg)](https://github.com/standard/standard)
 
-**Notice:** This module is in early development and may have minor bugs and inconveniences. This module is under active development by the Concord Team and Community.
+**Notice:** This module and API is in early development and may change in the future.
 
+[TangoAlpha Official Website](https://tangoalpha.gq/)
 
 # Getting Started
 
-Install the Concord-API NPM Package with:
+Install the tangoalpha NPM Package with:
 ```
-npm i concordapi
+npm i tangoalpha
 ```
 Also, require the module in your Node.js application with:
 ```js
-var concord = require("concordapi")
+var tango = require("tangoalpha")
 ```
 
 # Using the API
 
-## Reading Concord Exchange (CXDx) Prices
+## Blocktime
 
-To check a coin's price in CXD use:
 ```js
-concord.price(string).then(price => {
-  console.log(price) // Logs the price of 'string'
+tango.blocktime().then(result => { //Result is a float
+  console.log(result) // Logs the average blocktime in seconds
 })
 ```
 
-For example, using:
+## Blockdrift
+
 ```js
-var coin = "IC"
-
-concord.price(coin).then(price => {
-  console.log(coin + " is priced at " + price + " CXD") // Logs the price of 'IC'
-})
-```
-Would log the price of IC (Ignition Coin) live from the Concord Exchange.
-
-## Reading Concord Social Platform (CSP) Profiles
-
-There are two options you can choose from to read data from a user's profile.
-### Method One - Via the user Object
-The user Object contains all public data of a user's profile. The contents of the object can be seen by stringifying the result of the function:
-```js
-/* userID is the DiscordID of the user who's profile you're reading from, as a string */
-concord.getUser(userID).then(user => {
-  console.log("User's full data object: "+JSON.stringify(user))
-
-	console.log("User's balance is "+user.balance)
-	console.log("User's Discord Username is "+user.discordUsername)
-	console.log("User's Discord ID is "+user.discordID)
+tango.blockdrift().then(result => { // Result is an Array
+  console.log(JSON.stringify(result)) // Logs the 'drift' of the past 1000 blocks
 })
 ```
 
-### Method Two - Individual Profile Elements
-If you don't want to use the full object or want to create a Lightweight function without accessing the object, you can use:
+## Getdb - (Warning! Very resource intensive, please do not spam this!)
+
 ```js
-concord.getBalance(userID).then(balance => {
-  console.log("Balance of "+userID+" is " + balance + " CXD")
+tango.getdb().then(result => { // Result is an Array
+  console.log(JSON.stringify(result)) // Logs the entire DB of TangoAlpha
 })
 ```
 
-## Sending a Transaction through ConcordPay
-ConcordPay is a simple online interface for the Lightnet transaction system. Transactions can be sent directly to any registered Lightnet User from any integrated platform.
-
-To send a transaction, you first need to provide your Concord Home account credentials in an Object, as shown below:
-```js
-var auth = {u: 'username-here', p: 'password-here'} /* Replace values with your real credentials! */
-```
-
-Once you've entered your Auth-data, send your transaction.
+## mnstcount
 
 ```js
-var amount = 25 /* The amount of Concord (CXD) you are sending */
-var to = 'username-of-transaction-receiver' /* This is the user Receiving the transaction */
-
-concord.send(auth, amount, to).then(response => { /* Sends your Auth and Transaction data to Lightnet for processing */
-  console.log(response) /* Logs the API's response to the console. E.G: "(User)'s Payment Has Sent!'" */
+tango.mnstcount().then(result => { // Result is an Object
+  console.log(JSON.stringify(result)) // Logs the blocks and votes betweeen Stakers and MNs
 })
-
 ```
 
-To Receive transactions, simply give your Concord Home username to the application/user that wants to pay you.
+## Getblock
 
-## Full Examples
-  Examples in this section can be freely copy/pasted into your code and modified to your choosing and when unmodified and authenticated, "just work".
-
-### Example 1. Continuously pulling a Concord Exchange coin price
-  ```js
-	/* This script would run indefinitely until the console/terminal is closed manually */
-  var concord = require("concordapi")
-
-  var coin = "IC" // A Coin listed on the CXDx to check the price of, in CXD.
-  setInterval(checkPrice, 5000) // Check coin price every 5 seconds
-
-  function checkPrice () {
-		concord.price(coin).then(price => {
-  		console.log('1 '+coin+' is '+price+' CXD') // Prints the price of the CXDx Coin
-		})
-  }
+```js
+var block = 1685805
+tango.getblock(block).then(result => { // "Block" is an integer of the desired block. Result is an Object
+  console.log(JSON.stringify(result)) // Logs the block and it's winners
+})
 ```
 
-### Example 2. Authenticating and Sending a Transaction
-  ```js
-  var concord = require("concordapi")
+## Getaddress
 
-  var auth = {u: 'username-here', p: 'password-here'}
-  var amount = 25  /* The amount of Concord (CXD) you are sending */
-  var to = 'username-of-receiver'  /* This is the user Receiving the transaction */
-
-  concord.send(auth, amount, to).then(response => { /* The API Package function, to send the payment to the Lightnet Server */
-    console.log(response)  /* Logs the API's response to the console. E.G: "(User)'s Payment Has Sent!'" */
-  })
-  ```
+```js
+var address = 1685805
+tango.address(address).then(result => { // "Address" is a string of the desired coin address. Result is an Object
+  console.log(JSON.stringify(result)) // Logs the address and it's TangoAlpha stats (voteweight, balance, blocksseen)
+})
+```

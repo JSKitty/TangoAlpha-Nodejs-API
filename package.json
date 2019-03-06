@@ -1,36 +1,32 @@
 {
-  "name": "concordapi",
-  "version": "1.2.0",
-  "description": "The Official Concord REST API Package for Node.js",
+  "name": "tangoalpha",
+  "version": "1.0.0",
+  "description": "The TangoAlpha Node.js API",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "Concord-API"
+    "url": "TangoAlpha-Nodejs-API"
   },
   "keywords": [
-    "Concord",
-    "CXD",
-    "Crypto",
-    "Cryptocurrency",
-    "Exchange",
-    "API",
-    "Finance",
-    "ConcordCXD",
-    "ConcordAPI",
-    "REST"
+    "PIVX",
+    "Tango",
+    "Alpha",
+    "TangoAlpha",
+    "Furniture",
+    "JSKitty"
   ],
-  "author": "Eupharia",
+  "author": "JSKitty",
   "license": "MIT",
   "dependencies": {
     "requestify": "^0.2.5"
   },
   "bugs": {
-    "url": "https://github.com/Concord-Ecosystem/Concord-API-NodeJS/issues"
+    "url": "https://github.com/JSKitty/TangoAlpha-Nodejs-API/issues"
   },
-  "homepage": "https://github.com/Concord-Ecosystem/Concord-API-NodeJS",
+  "homepage": "https://github.com/JSKitty/TangoAlpha-Nodejs-API",
   "devDependencies": {
     "eslint": "^5.4.0",
     "eslint-config-standard": "^11.0.0",
