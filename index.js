@@ -18,6 +18,23 @@ exports.blocktime = async function () {
   }
 }
 
+exports.roi = async function () {
+  try {
+    var result = await req.get(basePublicUrl + 'estimatedroi')
+    result = Number(result.body)
+    if (result <= 0 || result === NaN || result === null || result === undefined) {
+      throw 'API Result doesn\'t   seem right, TangoAlpha may be having problems'
+    }
+    return result
+  } catch (err) {
+    if (err.body) {
+      console.warn('TangoAlphaAPI Error caught: (' + err.body + ')')
+    } else {
+      console.warn('TangoAlphaAPI Error caught: (' + err + ')')
+    }
+  }
+}
+
 exports.blockdrift = async function () {
   try {
     var result = await req.get(basePublicUrl + 'getblockdrift')

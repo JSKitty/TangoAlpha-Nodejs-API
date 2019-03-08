@@ -1,6 +1,6 @@
 {
   "name": "tangoalpha",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "The TangoAlpha Node.js API",
   "main": "index.js",
   "scripts": {

@@ -27,6 +27,14 @@ tango.blocktime().then(result => { //Result is a float
 })
 ```
 
+## Estimated ROI
+
+```js
+tango.roi().then(result => { //Result is a float
+  console.log(result) // Logs the estimated yearly ROI in Percentage
+})
+```
+
 ## Blockdrift
 
 ```js
