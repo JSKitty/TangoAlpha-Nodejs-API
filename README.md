@@ -71,7 +71,7 @@ tango.getblock(block).then(result => { // "Block" is an integer of the desired b
 ## Getaddress
 
 ```js
-var address = 1685805
+var address = "D6HPrF2BW4BBSrKn7g7v3up9sActhjNTfV"
 tango.address(address).then(result => { // "Address" is a string of the desired coin address. Result is an Object
   console.log(JSON.stringify(result)) // Logs the address and it's TangoAlpha stats (voteweight, balance, blocksseen)
 })
